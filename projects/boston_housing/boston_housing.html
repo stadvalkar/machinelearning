@@ -11851,7 +11851,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Minimum price of the data</span>
@@ -11892,9 +11892,9 @@ div#notebook {
 <span class="k">print</span> <span class="s2">&quot;Median price ${:,.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">median_price</span><span class="p">)</span>
 <span class="k">print</span> <span class="s2">&quot;Standard deviation of prices: ${:,.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">std_price</span><span class="p">)</span>
 
-<span class="k">print</span> <span class="s2">&quot;Minimum Rooms: ${:,.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">minimum_room</span><span class="p">)</span>
-<span class="k">print</span> <span class="s2">&quot;Maximum Rooms: ${:,.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">maximum_room</span><span class="p">)</span>
-<span class="k">print</span> <span class="s2">&quot;Median Rooms ${:,.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">median_room</span><span class="p">)</span>
+<span class="k">print</span> <span class="s2">&quot;Minimum Rooms: {:,.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">minimum_room</span><span class="p">)</span>
+<span class="k">print</span> <span class="s2">&quot;Maximum Rooms: {:,.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">maximum_room</span><span class="p">)</span>
+<span class="k">print</span> <span class="s2">&quot;Median Rooms {:,.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">median_room</span><span class="p">)</span>
 
 <span class="k">print</span> <span class="s2">&quot;Minimum LSTAT: ${:,.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">minimum_LSTAT</span><span class="p">)</span>
 <span class="k">print</span> <span class="s2">&quot;Maximum LSTAT: ${:,.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">maximum_LSTAT</span><span class="p">)</span>
@@ -11922,9 +11922,9 @@ Maximum price: $1,024,800.00
 Mean price: $454,342.94
 Median price $438,900.00
 Standard deviation of prices: $165,171.13
-Minimum Rooms: $3.56
-Maximum Rooms: $8.40
-Median Rooms $6.18
+Minimum Rooms: 3.56
+Maximum Rooms: 8.40
+Median Rooms 6.18
 Minimum LSTAT: $1.98
 Maximum LSTAT: $37.97
 Median LSTAT $11.69
@@ -13710,19 +13710,9 @@ kp4xxpigYUnPGGNM0LCkZ4wxJmhY0jPGGBM0/h/pAw3Z+cqcFwAAAABJRU5ErkJggg==
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong>
-When the model is trained with maximum depth of 1, the model suffers from high bias i.e underfitting. The model score is around 0.45 , that means it is able to predict 45% of the target variable. 
-Model suffers from high bias when maximum depth is 10. It seems to be highly accurate for training data set but accuracy drops off significantly for the test data set. This leads me to conclude it is overfitting the training set and cannot predict with same accuracy for the test set. The uncertaining area in the validation score is also very large for max depth of 10.</p>
-
-</div>
-</div>
-</div>
+</div>**Answer: **
+When the model is trained with maximum depth of 1, the model suffers from high bias i.e underfitting. The model has a low training of 0.45 at max_depth of 1, that means it is able to predict 45% of the target variable. 
+Model suffers from high variance when maximum depth is 10. It seems to be highly accurate for training data set but accuracy drops off significantly for the test data set. This leads me to conclude it is overfitting the training set and cannot predict with same accuracy for the test set. The uncertaining area in the validation score is also very large for max depth of 10.
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13771,7 +13761,7 @@ At max depth of 3 there is little difference between training score and validati
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong>
-The model or estimator may have various parameters that directly impact the performance score of the model. To figure out the optimal values of the estimator parameters, grid search technique can be applied. This allows for considering numerous parameter combinations and constructing an estimator with the optimized parameter values.</p>
+The model or estimator may have various parameters that directly impact the performance score of the model. These parameters called Hyper parameters are not learnt in the estimator but provided to the constructor as arguments. The hyper parameter space can be searched for the best combination by evaluating the estimator performance for those combinations. Grid search technique is a search strategy that utilizes all exhaustive search combinations from the given parameter candidates and select the parameters that maximizes the performance score.</p>
 
 </div>
 </div>
@@ -13793,9 +13783,12 @@ The model or estimator may have various parameters that directly impact the perf
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong>
-KFold cross validation technique allows for splitting data set into training and testing data sets. The data is partitioned into K parts where each part is used once for validation the K-1 parts are used for training. 
+KFold cross validation technique allows for splitting data set into training and testing data sets. The data is partitioned into K parts where each part is used once for validation the K-1 parts are used for training.The K results from the folds can then be averaged to produce a single estimation.One of the advantages of the method is all observations are used exactly once for validation. The error rate is averaged over K folds to a single number that represents the error rate for the complete validation data set.<br> 
 As KFold divides data set into multiple parts of training and testing data sets, it is ideal for grid search to iterate over these dataset and try various parameter combinations for evaluating optimal parameters for the estimator.
-Without a cross validated set, grid search would use only training data set and come up with optimal parameters that may overfit the data set.</p>
+Without a cross validated set, grid search would use only training data set and come up with optimal parameters that may overfit the data set.<BR>
+For example: Consider a simple Train and Test strategy with 80% as training data and 20% as test data. This means that 20% data is not available to train and thus the estimator/model may not learn certain aspects of the data that is only represented in the 20% test data set. This means the error rate of the algorithm may be higher due to the missing 20% that we are not able to train on. <BR>
+In case of KFold we use each observation once for validation, and K-1 times for training. This means we are able to train on each piece of data and validate using every observation. The error rate is averaged over all KFolds and as we have cross validated all the dataset the estimator should be able to provide reliable results (with known error rate). <BR>
+Also using grid search with KFold enables us to tune the estimator parameters and validate them on all the observations rather than (as in simple train and test strategy case) on 20% of the data and thus help us alleviate any overfitting of the hyper parameters.</p>
 
 </div>
 </div>
@@ -13832,7 +13825,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import &#39;make_scorer&#39;, &#39;DecisionTreeRegressor&#39;, and &#39;GridSearchCV&#39;</span>
@@ -13858,7 +13851,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
     <span class="n">scoring_fnc</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">performance_metric</span><span class="p">)</span>
 
     <span class="c1"># TODO: Create the grid search object</span>
-    <span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">regressor</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv_sets</span><span class="p">)</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">regressor</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring_fnc</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="n">cv_sets</span><span class="p">)</span>
 
     <span class="c1"># Fit the grid search object to the data to compute the optimal model</span>
     <span class="n">grid</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -13895,7 +13888,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Fit the training data to the model using grid search</span>
@@ -13979,7 +13972,7 @@ The maximum depth of the optimal model is 4. My guess from the Question 6 chart 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Produce a matrix for client data</span>
@@ -13990,6 +13983,12 @@ The maximum depth of the optimal model is 4. My guess from the Question 6 chart 
 <span class="c1"># Show predictions</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">price</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">client_data</span><span class="p">)):</span>
     <span class="k">print</span> <span class="s2">&quot;Predicted selling price for Client {}&#39;s home: ${:,.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">price</span><span class="p">)</span>
+    
+<span class="k">print</span> <span class="n">features</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="k">print</span> <span class="s2">&quot; Median Rooms {:,.2f} &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;RM&#39;</span><span class="p">]))</span>
+<span class="k">print</span> <span class="s2">&quot; Median LSTAT {:,.2f} &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;LSTAT&#39;</span><span class="p">]))</span>
+<span class="k">print</span> <span class="s2">&quot; Median PTRATIO {:,.2f} &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;PTRATIO&#39;</span><span class="p">]))</span>
+<span class="k">print</span> <span class="s2">&quot; Median Price {:,.2f} &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">prices</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -14005,6 +14004,19 @@ The maximum depth of the optimal model is 4. My guess from the Question 6 chart 
 <pre>Predicted selling price for Client 1&#39;s home: $403,025.00
 Predicted selling price for Client 2&#39;s home: $237,478.72
 Predicted selling price for Client 3&#39;s home: $931,636.36
+               RM       LSTAT     PTRATIO
+count  489.000000  489.000000  489.000000
+mean     6.240288   12.939632   18.516564
+std      0.643650    7.081990    2.111268
+min      3.561000    1.980000   12.600000
+25%      5.880000    7.370000   17.400000
+50%      6.185000   11.690000   19.100000
+75%      6.575000   17.120000   20.200000
+max      8.398000   37.970000   22.000000
+ Median Rooms 6.18 
+ Median LSTAT 11.69 
+ Median PTRATIO 19.10 
+ Median Price 438,900.00 
 </pre>
 </div>
 </div>
@@ -14019,7 +14031,12 @@ Predicted selling price for Client 3&#39;s home: $931,636.36
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong>
-In the data exploration section, the median price was about 438k and std deviation of 165k. For a reasonability check i also found out the min,median and max for the features of RM, LSTAT and PTRATIO. From that data, the predicted selling prices seem  reasonable and I would recommend the predicted prices to the client to sell their homes. In real life however, i would look for a larger dataset and/or comparing some other models and see if i can get a higher r^2 score than the current model (with max depth of 4) before settling down on the model.</p>
+In the data exploration section, the median price was about 438k and std deviation of 165k. <BR> 
+For a reasonability check i also found out the min,median,mean,std deviation and max for the features of RM, LSTAT and PTRATIO. <BR> From that data, following are my observations <BR>
+Client 1's home predicted price is 403K which is little below the median home price of 438K. Price seems to be justified as Number of rooms (5) are below median of 6.2, LSTAT (Poverty of 17%) is above the median of 11.69 and Student - Teacher ratio of 15 is a bit better than the median PTRATIO of 19. <BR> 
+Client 2's home predicted price is 237K which much lower median home price of 438K. Price seems to be justified as Number of rooms (4) are close to minimum of 3.56, LSTAT (Poverty of 32%) is closer to max of 37.97 and Student - Teacher ratio of 22 maximum ratio in whole of the city. Clearly this house is in a less desirable neighborhood and so priced is lower  <BR> 
+Client 3's home predicted price is 931K which is much higher than the 1 std deviation price 603K(438+165K). Price seems to be justified as Number of rooms (8) are close to max rooms, LSTAT (Poverty of 3%) is closer to minimum  of 1.98 and Student - Teacher ratio is 12 is close to minimum. This home seems to be a big house and in a desirable part of city and so is priced close to the maximum price of 1.024 Million  <BR> 
+The predicted selling prices seem  reasonable and I would recommend the predicted prices to the client to sell their homes. In real life however, i would look for a larger dataset and/or comparing some other models and see if i can get a higher r^2 score than the current model (with max depth of 4) before settling down on the model.</p>
 
 </div>
 </div>
@@ -14036,7 +14053,7 @@ In the data exploration section, the median price was about 438k and std deviati
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">vs</span><span class="o">.</span><span class="n">PredictTrials</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">prices</span><span class="p">,</span> <span class="n">fit_model</span><span class="p">,</span> <span class="n">client_data</span><span class="p">)</span>
@@ -14053,17 +14070,17 @@ In the data exploration section, the median price was about 438k and std deviati
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Trial 1: $391,183.33
-Trial 2: $419,700.00
+Trial 2: $424,935.00
 Trial 3: $415,800.00
 Trial 4: $420,622.22
-Trial 5: $418,377.27
+Trial 5: $413,334.78
 Trial 6: $411,931.58
 Trial 7: $399,663.16
 Trial 8: $407,232.00
 Trial 9: $351,577.61
 Trial 10: $413,700.00
 
-Range in prices: $69,044.61
+Range in prices: $73,357.39
 </pre>
 </div>
 </div>
@@ -14115,6 +14132,19 @@ The constructed model should not be used in a real world setting for multiple re
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
