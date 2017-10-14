@@ -19,7 +19,6 @@ class LearningAgent(Agent):
         self.Q = dict()          # Create a Q-table which will be a dictionary of tuples
         self.epsilon = epsilon   # Random exploration factor
         self.alpha = alpha       # Learning factor
-
         ###########
         ## TO DO ##
         ###########
@@ -87,12 +86,12 @@ class LearningAgent(Agent):
 
         maxQ = None
         
-        for a in self.Q[state] :
-            """print " maxQ == None :",maxQ == None
-            print "maxQ:",maxQ," A:",a, " Q:",self.Q[state][a]"""
-            if (maxQ == None or self.Q[state][a] > maxQ) :
-                maxQ = self.Q[state][a];
-            
+        # for a in self.Q[state] :
+        #     """print " maxQ == None :",maxQ == None
+        #     print "maxQ:",maxQ," A:",a, " Q:",self.Q[state][a]"""
+        #     if (maxQ == None or self.Q[state][a] > maxQ) :
+        #         maxQ = self.Q[state][a];
+        maxQ = max(self.Q[state].values())    
 
         return maxQ 
 
@@ -106,8 +105,12 @@ class LearningAgent(Agent):
         # When learning, check if the 'state' is not in the Q-table
         # If it is not, create a new dictionary for that state
         #   Then, for each action available, set the initial Q-value to 0.0
-        if (self.learn) :
-            self.Q[state] = self.Q.get(state, {None:0.0, 'forward':0.0, 'left':0.0, 'right':0.0})
+        
+        #  self.Q[state] = self.Q.get(state, {None:0.0, 'forward':0.0, 'left':0.0, 'right':0.0})
+        #To the reviewer, i believe my previous line was correct (as above)  and it was initializing 
+        # the Q values when state was not present. regardless i have made the following change
+        if (self.learn and self.Q.get(state) == None ) :
+            self.Q[state] =  {None:0.0, 'forward':0.0, 'left':0.0, 'right':0.0}
 
         return
 
@@ -135,9 +138,14 @@ class LearningAgent(Agent):
                     action = random.choice(self.env.valid_actions)
              else :
                 maxQVal = self.get_maxQ(state)
-                for action in self.Q[state] :
-                    if self.Q[state][action] == maxQVal :
-                        return action
+                print "maxQVal:",maxQVal
+                print self.Q[state]
+                maxActions = [ action for action in self.Q[state] if self.Q[state][action] == maxQVal ]
+                print maxActions
+                return random.choice(maxActions)
+                #for action in self.Q[state] :
+                #    if self.Q[state][action] == maxQVal :
+                #        return action
         return action
 
 
@@ -190,7 +198,7 @@ def run():
     #    * epsilon - continuous value for the exploration factor, default is 1
     #    * alpha   - continuous value for the learning rate, default is 0.5
     #agent = env.create_agent(LearningAgent,learning=False)
-    #agent = env.create_agent(LearningAgent,learning=True, epsilon=1.0, alpha=0.01)
+    #agent = env.create_agent(LearningAgent,learning=True, epsilon=1.0, alpha=0.5)
     agent = env.create_agent(LearningAgent,learning=True, epsilon=0.3, alpha=0.75)
     
     ##############
@@ -217,7 +225,7 @@ def run():
     #   tolerance  - epsilon tolerance before beginning testing, default is 0.05 
     #   n_test     - discrete number of testing trials to perform, default is 0
     #sim.run(n_test=10)
-    #sim.run(n_test=15,tolerance=0.01)
+    #sim.run(n_test=10,tolerance=0.01)
     sim.run(n_test=150,tolerance=0.00001)
 
 
